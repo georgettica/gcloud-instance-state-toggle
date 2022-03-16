@@ -1,0 +1,31 @@
+#!/usr/bin/env ansible-playbook
+
+- hosts: localhost
+  tasks:
+  - name: 'Check mandatory variables are defined'
+    assert:
+      that:
+        - server_name is defined
+  - name: get the output of the gcloud api command
+    command: "gcloud compute instances list --filter={{ server_name }} --format=json"
+    register: instance_ip
+  - name: extract the server name and ip address
+    set_fact:
+      replacement_line: "{{ instance_ip.stdout | from_json | community.general.json_query('[0].networkInterfaces[0].accessConfigs[0].natIP') }}\t{{server_name}}"
+  - name: Use backrefs with alternative group syntax to avoid conflicts with variable values
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      regexp: "{{ '^[^#](.*' + server_name  + '\n).*$' }}"
+      line: "{{'# \\g<1>' + replacement_line }}"
+      backrefs: yes
+  # tasks file for sort
+  # pushing this here commented as in most cases this is not required
+  # keeping in case someone wants to use this
+  #- name: read /etc/hosts
+  #  slurp:
+  #    src: /tmp/hosts
+  #  register: passwordfile
+  #- name: Get the 
+  #  debug:
+  #    msg: "{{ passwordfile['content'] | b64decode | regex_findall('.*{{ server_name }}.*') | sort }}"
+  #  register: sortedhosts
