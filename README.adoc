@@ -2,6 +2,13 @@ gcloud-instance-state-toggle
 ============================
 :toc:
 
+image:https://img.shields.io/github/checks-status/georgettica/gcloud-instance-state-toggle/main[GitHub Workflow Status (branch)]
+
+== Purpose
+this tool will start/stop your machine and change your /etc/hosts IP address to the public IP of the machine.
+this way:
+- attack surface is reduced as it's easy to turn off
+- no need to hassle with /etc/hosts edit as root
 
 == Usage
 run link:./toggle.sh[] to toggle between the states
