@@ -15,7 +15,8 @@ do
 done
 
 main() {
-    source ./vars.env # loads the envvars
+    # loads the envvars
+    source ./vars.env 
     if [[ -z "${INSTANCE_NAME}" ]] || [[ -z "${INSTANCE_ZONE}" ]]; then
 	    echo "INSTANCE_NAME or INSTANCE_ZONE were not defined in ./vars.env"
 	    exit 1
