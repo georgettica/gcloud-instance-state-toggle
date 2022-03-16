@@ -2,7 +2,8 @@ gcloud-instance-state-toggle
 ============================
 :toc:
 
-image:https://img.shields.io/github/checks-status/georgettica/gcloud-instance-state-toggle/main[GitHub Workflow Status (branch)]
+image:https://img.shields.io/github/workflow/status/georgettica/gcloud-instance-state-toggle/Ansible[GitHub Ansible Workflow Status]
+image:https://img.shields.io/github/workflow/status/georgettica/gcloud-instance-state-toggle/ShellCheck[GitHub ShellCheck Workflow Status]
 
 == Purpose
 this tool will start/stop your machine and change your /etc/hosts IP address to the public IP of the machine.
