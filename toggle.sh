@@ -2,7 +2,12 @@
 
 set -eEuo pipefail
 
-REQUIRED_COMMANDS=( gcloud sudo ansible-playbook )
+REQUIRED_COMMANDS=( 
+	ansible-playbook
+	gcloud
+	jq
+	sudo
+)
 # Check required commands are in $PATH
 for cmd in "${REQUIRED_COMMANDS[@]}"
 do
@@ -23,19 +28,13 @@ main() {
     fi
 
     local instance_status
-    instance_status=$(gcp_instance_status "${INSTANCE_NAME}")
+    instance_status=$(./status.sh "${INSTANCE_NAME}")
     if [[ ${instance_status} == "TERMINATED" ]]; then
         gcloud compute instances start --zone "${INSTANCE_ZONE}" "${INSTANCE_NAME}"
         sudo ./gcp-change-ip.yml -e server_name="${INSTANCE_NAME}"
     elif [[ ${instance_status} == "RUNNING" ]]; then
             gcloud compute instances stop --zone "${INSTANCE_ZONE}" "${INSTANCE_NAME}"
     fi
-}
-
-gcp_instance_status() {
-    local instance_name
-    instance_name="${1}"
-    gcloud compute instances list --filter="${instance_name}" --format=json | jq -r '.[].status'
 }
 
 main "$@"
