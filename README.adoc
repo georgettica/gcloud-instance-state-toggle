@@ -4,7 +4,7 @@ gcloud-instance-state-toggle
 
 
 == Usage
-run ./toggle.sh to toggle between the states
+run link:./toggle.sh[] to toggle between the states
 
 == Configure
-copy the ./vars.env.sample to ./vars.env
+copy the link:./vars.env.sample[] to ./vars.env
