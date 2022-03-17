@@ -24,7 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3.0.0
-
+      - name: Add tmp file
+        run: cp vars.env.sample vars.env
       - name: Lint Ansible Playbook
         uses: reviewdog/action-ansiblelint@v1.5.0
         with: 
