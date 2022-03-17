@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 set -eEuo pipefail
 
 REQUIRED_COMMANDS=( 
