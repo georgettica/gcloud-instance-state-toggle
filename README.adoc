@@ -16,3 +16,12 @@ run link:./toggle.sh[] to toggle between the states
 
 == Configure
 copy the link:./vars.env.sample[] to ./vars.env
+
+add the aliases:
+[source, bash]
+----
+$ cat << EOF >> ~/.bash_aliases
+alias toggle_gcp_instance='${PWD}/toggle.sh'
+alias gcp_instance_status='${PWD}/status.sh'
+EOF
+----
